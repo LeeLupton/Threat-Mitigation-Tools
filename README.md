@@ -10,7 +10,7 @@ A **desktop-shortcut-first** PowerShell script for Microsoft Edge that quickly c
 
 ## 1) Clone the repo
 ```powershell
-git clone https://github.com/<your-username>/Threat-Mitigation-Tools.git
+git clone https://github.com/LeeLupton/Threat-Mitigation-Tools.git
 cd Threat-Mitigation-Tools
 ````
 
