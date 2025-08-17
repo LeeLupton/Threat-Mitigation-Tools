@@ -21,7 +21,7 @@ Usage examples:
   powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "C:\\Threat-Mitigation-Tools\\Clear-Edge-Cache.ps1" -Aggressive
   powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "C:\\Threat-Mitigation-Tools\\Clear-Edge-Cache.ps1" -IncidentResponse -Force
   powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "C:\\Threat-Mitigation-Tools\\Clear-Edge-Cache.ps1" -RestoreBackup
-  powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "C:\\Threat-Mitigation-Tools\\Clear-Edge-Cache.ps1" -RestoreBackup -RestoreBackupPath "C:\\Users\\Lee\\EdgeIR_Backups\\EdgeUserData-20250816-010203.zip"
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "C:\\Threat-Mitigation-Tools\\Clear-Edge-Cache.ps1" -RestoreBackup -RestoreBackupPath "C:\\Users\\Username\\EdgeIR_Backups\\EdgeUserData-20250816-010203.zip"
 
 Notes:
   • IR creates a ZIP backup in %USERPROFILE%\EdgeIR_Backups (override with -BackupDir).
@@ -266,4 +266,5 @@ if (-not $IncidentResponse -and -not $RestoreBackup) {
 if ($RestartEdge -or $edgeWasRunning) {
   Write-Info "Launching Edge..."; Start-Process "msedge.exe" | Out-Null
 }
+
 
