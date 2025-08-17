@@ -56,11 +56,15 @@ $edgeWasRunning = $false
 $edgeProcs = Get-Process -Name msedge -ErrorAction SilentlyContinue
 if ($edgeProcs) { $edgeWasRunning = $true }
 
-# Attempt graceful shutdown of Edge so caches unlock
-if ($edgeWasRunning) {
-  Write-Info "Closing Edge processes..."
-  try { Get-Process msedge -ErrorAction Stop | Stop-Process -Force -ErrorAction Stop } catch {}
-  Start-Sleep -Milliseconds 500
+# Attempt graceful shutdown of Edge so caches unlock. If graceful shutdown is unsuccessful use Stop-Process.
+$edge = Get-Process msedge -ErrorAction SilentlyContinue
+if ($edge) {
+  Write-Info "Attempting graceful close..."
+  $null = $edge.CloseMainWindow()
+  if (-not $edge.WaitForExit(3000)) { # wait up to 3s
+    Write-Info "Graceful close failed; terminating..."
+    Stop-Process -Id $edge.Id -Force -ErrorAction SilentlyContinue # Force shutdown of Edge
+  }
 }
 
 # Build list of profiles
@@ -262,3 +266,4 @@ if (-not $IncidentResponse -and -not $RestoreBackup) {
 if ($RestartEdge -or $edgeWasRunning) {
   Write-Info "Launching Edge..."; Start-Process "msedge.exe" | Out-Null
 }
+
